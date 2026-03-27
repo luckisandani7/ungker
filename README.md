@@ -1,32 +1,23 @@
-# Ungker 🐛
+## 📱 About the App: Ungker
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/luckisandani7/ungker/main.yml?branch=main&style=flat-square)](https://github.com/luckisandani7/ungker/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+**Ungker** adalah aplikasi berbasis *scripting* yang dirancang sebagai mesin otomatisasi ringan. Nama "Ungker" (kepompong) melambangkan fase persiapan sebelum menjadi sesuatu yang terbang bebas—seperti repository ini yang menyiapkan lingkungan eksekusi untuk berbagai tugas teknis secara efisien.
 
-**Ungker** adalah repository otomatisasi sederhana yang dirancang untuk menjalankan tugas-tugas tertentu secara terjadwal atau manual menggunakan GitHub Actions.
+---
 
-## 🚀 Fitur Utama
-* **Manual Trigger:** Menggunakan `workflow_dispatch` untuk menjalankan script kapan saja tanpa perlu push code.
-* **Automated Execution:** Konfigurasi workflow yang siap pakai di lingkungan GitHub Runner.
-* **Lightweight:** Struktur kode yang minimalis dan fokus pada fungsionalitas.
+### ⚙️ Core Functionality
+* **On-Demand Execution:** Dirancang khusus untuk dijalankan melalui **GitHub Actions (`workflow_dispatch`)**, memberikan kontrol penuh untuk memulai tugas secara manual tanpa ketergantungan pada *push event*.
+* **Headless Environment:** Optimal untuk dijalankan di lingkungan *server-side* atau *virtual runner* (Ubuntu-Latest) tanpa memerlukan antarmuka grafis (GUI).
+* **Cross-Platform Ready:** Meskipun berjalan di GitHub Cloud, script ini dikembangkan agar tetap kompatibel untuk dijalankan secara lokal pada perangkat **Android (via Termux)** maupun PC.
 
-## 🛠️ Cara Penggunaan
+### 🛠️ Technical Stack
+* **Automation Engine:** GitHub Actions (YAML)
+* **Primary Logic:** Python / Shell Scripting (Bergantung pada script utama di dalam repo)
+* **Environment:** Virtualized Linux Environment (Runner)
 
-### Menjalankan Secara Manual
-1.  Buka tab **Actions** di repository ini.
-2.  Pilih workflow yang ingin dijalankan di sidebar sebelah kiri.
-3.  Klik dropdown **Run workflow**.
-4.  Pilih branch (biasanya `main`) dan klik tombol hijau **Run workflow**.
+### 🌟 Key Features
+* **Input Parametrization:** Mendukung input dinamis saat *runtime*, memungkinkan satu workflow digunakan untuk berbagai parameter berbeda tanpa mengubah kode.
+* **Log Management:** Setiap proses terdokumentasi dengan rapi di dalam tab *Actions logs* untuk memudahkan *debugging* jika terjadi kendala pada script.
+* **Dependency Isolation:** Menggunakan sistem *environment setup* yang bersih dan terisolasi setiap kali script dijalankan.
 
-### Menjalankan Secara Lokal
-Jika Anda ingin mencoba script ini di mesin lokal atau melalui terminal (seperti Termux):
-
-```bash
-# Clone repository
-git clone [https://github.com/luckisandani7/ungker.git](https://github.com/luckisandani7/ungker.git)
-
-# Masuk ke direktori
-cd ungker
-
-# Jalankan script utama (sesuaikan dengan nama file Anda, misal: main.py atau script.sh)
-python main.py
+---
+> **Note:** Pastikan semua dependensi telah terdaftar di `requirements.txt` agar workflow dapat berjalan dengan sempurna di GitHub Runner.
