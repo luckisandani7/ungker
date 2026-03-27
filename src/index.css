@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@layer base {
+  .recharts-wrapper, 
+  .recharts-wrapper *:focus,
+  .recharts-surface:focus {
+    outline: none !important;
+  }
+}
+
+@keyframes border-beam {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-border-beam {
+  animation: border-beam 6s linear infinite;
+}

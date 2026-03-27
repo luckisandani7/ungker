@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "Trade": {
+      "title": "Trade",
+      "description": "A single trading record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "pair": { "type": "string" },
+        "type": { "type": "string", "enum": ["buy", "sell"] },
+        "entryPrice": { "type": "number" },
+        "stopLoss": { "type": "number" },
+        "takeProfit": { "type": "number" },
+        "exitPrice": { "type": "number" },
+        "lotSize": { "type": "number" },
+        "pips": { "type": "number" },
+        "rr": { "type": "number" },
+        "profit": { "type": "number" },
+        "result": { "type": "string", "enum": ["win", "loss", "none"] },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "date", "pair", "type", "entryPrice", "stopLoss", "takeProfit", "exitPrice", "lotSize", "pips", "rr", "profit", "result", "userId"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "users/{userId}/trades/{tradeId}": {
+      "schema": "Trade",
+      "description": "User's individual trade records"
+    }
+  }
+}
