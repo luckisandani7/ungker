@@ -14,7 +14,7 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
   const availableMonths = useMemo(() => {
     return Object.keys(allTrades)
       .filter(key => allTrades[key].length > 0)
-      .sort((a, b) => b.localeCompare(a)); // Newest first
+      .sort((a, b) => b.localeCompare(a));
   }, [allTrades]);
 
   const selectedTrades = useMemo(() => {
@@ -47,7 +47,7 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
               <div className="bg-zinc-800/50 px-4 py-2 border-b border-zinc-800 flex justify-between items-center">
                 <span className="text-xs font-bold text-white">{format(parseISO(trade.date), 'dd MMM yyyy')}</span>
                 <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-md ${
-                  trade.result === 'win' ? 'bg-emerald-500/10 text-emerald-400' : 
+                  trade.result === 'win' ? 'bg-red-500/10 text-red-400' : 
                   trade.result === 'sl_plus' ? 'bg-blue-500/10 text-blue-400' :
                   trade.result === 'bep' ? 'bg-zinc-500/10 text-zinc-400' :
                   'bg-red-500/10 text-red-400'
@@ -70,7 +70,7 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-zinc-500 uppercase">Take Profit</div>
-                  <div className="text-sm font-mono text-emerald-500/70">{trade.takeProfit}</div>
+                  <div className="text-sm font-mono text-red-500/70">{trade.takeProfit}</div>
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-zinc-500 uppercase">RR</div>
@@ -78,16 +78,24 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
                 </div>
                 <div>
                   <div className="text-[10px] font-bold text-zinc-500 uppercase">Pips</div>
-                  <div className={`text-sm font-bold ${trade.pips >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <div className={`text-sm font-bold ${trade.pips >= 0 ? 'text-red-400' : 'text-red-400'}`}>
                     {trade.pips > 0 ? '+' : ''}{trade.pips}
                   </div>
                 </div>
                 <div className="col-span-2 pt-2 border-t border-zinc-800/50 flex justify-between items-center">
                   <span className="text-[10px] font-bold text-zinc-500 uppercase">Profit / Loss</span>
-                  <span className={`text-lg font-black ${trade.profit >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                  <span className={`text-lg font-black ${trade.profit >= 0 ? 'text-red-400' : 'text-red-400'}`}>
                     {trade.profit >= 0 ? '+' : ''}${trade.profit.toFixed(2)}
                   </span>
                 </div>
+                {trade.notes && (
+                  <div className="col-span-2 pt-2 border-t border-zinc-800/50">
+                    <div className="text-[10px] font-bold text-zinc-500 uppercase mb-1">Notes</div>
+                    <div className="text-xs text-zinc-400 italic leading-relaxed">
+                      "{trade.notes}"
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -100,7 +108,7 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-500">
+          <div className="p-3 bg-red-500/10 rounded-2xl text-red-500">
             <LayoutList size={24} />
           </div>
           <div>
@@ -128,10 +136,10 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
             <button
               key={monthKey}
               onClick={() => setSelectedMonthKey(monthKey)}
-              className="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex items-center justify-between hover:border-white/10 transition-all group"
+              className="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex items-center justify-between hover:border-red-500/30 transition-all group"
             >
               <div className="flex items-center gap-4">
-                <div className="p-2 bg-white/5 rounded-xl text-zinc-400 group-hover:text-emerald-500 transition-colors">
+                <div className="p-2 bg-white/5 rounded-xl text-zinc-400 group-hover:text-red-500 transition-colors">
                   <CalendarIcon size={20} />
                 </div>
                 <div className="text-left">
@@ -152,4 +160,4 @@ export default function MonthlyOutlook({ allTrades, onBack }: MonthlyOutlookProp
       </div>
     </div>
   );
-}
+                                                                       }
