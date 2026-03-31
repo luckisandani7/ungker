@@ -52,8 +52,11 @@ export default function TradeForm({
       ? (formData.exitPrice - formData.entryPrice) * 10
       : (formData.entryPrice - formData.exitPrice) * 10;
     
+    // Profit = Pips * Pip Value * Lot Size
+    // Rule: 1 lot = $10 per pip for XAUUSD
     const calculatedProfit = calculatedPips * 10 * formData.lotSize;
     
+    // Auto-calculate result based on price levels
     let result: TradeResult = 'none';
     
     const targetPips = formData.type === 'buy' 
@@ -63,6 +66,7 @@ export default function TradeForm({
     if (Math.abs(calculatedProfit) < 0.5) {
       result = 'bep';
     } else if (calculatedProfit > 0) {
+      // If profit is more than 90% of target, consider it a full win
       if (targetPips > 0 && calculatedPips >= targetPips * 0.9) {
         result = 'win';
       } else {
@@ -86,7 +90,7 @@ export default function TradeForm({
         result
       }));
     }
-  }, [formData.entryPrice, formData.stopLoss, formData.takeProfit, formData.exitPrice, formData.type, formData.lotSize, formData.rr, formData.pips, formData.profit, formData.result]);
+  }, [formData.entryPrice, formData.stopLoss, formData.takeProfit, formData.exitPrice, formData.type, formData.lotSize]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,7 +119,7 @@ export default function TradeForm({
             type="datetime-local"
             value={formData.date}
             onChange={e => setFormData(prev => ({ ...prev, date: e.target.value }))}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
             required
           />
         </div>
@@ -127,7 +131,7 @@ export default function TradeForm({
               type="text"
               value={formData.pair}
               onChange={e => setFormData(prev => ({ ...prev, pair: e.target.value.toUpperCase() }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="e.g. XAUUSD"
               required
             />
@@ -137,7 +141,7 @@ export default function TradeForm({
             <select
               value={formData.type}
               onChange={e => setFormData(prev => ({ ...prev, type: e.target.value as any }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 appearance-none"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 appearance-none"
             >
               <option value="buy">Buy</option>
               <option value="sell">Sell</option>
@@ -153,7 +157,7 @@ export default function TradeForm({
               step="0.01"
               value={formData.lotSize || ''}
               onChange={e => setFormData(prev => ({ ...prev, lotSize: parseFloat(e.target.value) || 0 }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="0.01"
               required
             />
@@ -178,7 +182,7 @@ export default function TradeForm({
               step="0.00001"
               value={formData.entryPrice || ''}
               onChange={e => setFormData(prev => ({ ...prev, entryPrice: parseFloat(e.target.value) || 0 }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="0.00"
             />
           </div>
@@ -189,7 +193,7 @@ export default function TradeForm({
               step="0.00001"
               value={formData.exitPrice || ''}
               onChange={e => setFormData(prev => ({ ...prev, exitPrice: parseFloat(e.target.value) || 0 }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="0.00"
             />
           </div>
@@ -203,7 +207,7 @@ export default function TradeForm({
               step="0.00001"
               value={formData.stopLoss || ''}
               onChange={e => setFormData(prev => ({ ...prev, stopLoss: parseFloat(e.target.value) || 0 }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="0.00"
             />
           </div>
@@ -214,7 +218,7 @@ export default function TradeForm({
               step="0.00001"
               value={formData.takeProfit || ''}
               onChange={e => setFormData(prev => ({ ...prev, takeProfit: parseFloat(e.target.value) || 0 }))}
-              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
               placeholder="0.00"
             />
           </div>
@@ -240,7 +244,7 @@ export default function TradeForm({
           <textarea
             value={formData.notes}
             onChange={e => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-red-500/50 min-h-[100px]"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 min-h-[100px]"
             placeholder="Trade setup, emotions, mistakes..."
           />
         </div>
@@ -258,7 +262,7 @@ export default function TradeForm({
           )}
           <button
             type="submit"
-            className="flex-[2] bg-red-600 text-white rounded-xl py-4 font-bold flex items-center justify-center gap-2 hover:bg-red-500 transition-all shadow-lg shadow-red-600/20"
+            className="flex-[2] bg-emerald-600 text-white rounded-xl py-4 font-bold flex items-center justify-center gap-2 hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20"
           >
             <Save size={20} />
             {existingTrade ? 'Update Trade' : 'Save Trade'}
@@ -267,4 +271,4 @@ export default function TradeForm({
       </form>
     </div>
   );
-  }
+}
