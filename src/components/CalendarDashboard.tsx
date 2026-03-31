@@ -66,12 +66,13 @@ export default function CalendarDashboard({
   const [quoteIndex, setQuoteIndex] = useState(0);
 
   useEffect(() => {
+    // Shuffle quotes on initial load
     const shuffled = [...TRADING_QUOTES].sort(() => Math.random() - 0.5);
     setShuffledQuotes(shuffled);
     
     const interval = setInterval(() => {
       setQuoteIndex((prev) => (prev + 1) % TRADING_QUOTES.length);
-    }, 30000);
+    }, 30000); // 30 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -130,7 +131,7 @@ export default function CalendarDashboard({
             </h3>
             <button 
               onClick={() => onDateSelect(selectedDay)}
-              className="text-xs font-bold text-red-500 hover:text-red-400 uppercase tracking-wider"
+              className="text-xs font-bold text-emerald-500 hover:text-emerald-400 uppercase tracking-wider"
             >
               + Add Trade
             </button>
@@ -213,6 +214,7 @@ export default function CalendarDashboard({
           </div>
         ))}
         
+        {/* Padding for start of month */}
         {Array.from({ length: monthStart.getDay() }).map((_, i) => (
           <div key={`pad-${i}`} className="aspect-square" />
         ))}
@@ -268,8 +270,8 @@ export default function CalendarDashboard({
       </div>
 
       <div className="mt-8 pt-8 border-t border-zinc-800">
-        <div className="bg-zinc-950 rounded-3xl p-6 border border-red-900/20 flex flex-col items-center text-center space-y-4 animate-in fade-in duration-700">
-          <div className="p-3 bg-red-500/10 rounded-2xl text-red-600">
+        <div className="bg-zinc-950 rounded-3xl p-6 border border-emerald-900/20 flex flex-col items-center text-center space-y-4 animate-in fade-in duration-700">
+          <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-600">
             <Quote size={20} />
           </div>
           <div className="space-y-2 max-w-xs">
