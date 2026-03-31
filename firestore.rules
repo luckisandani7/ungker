@@ -43,7 +43,7 @@ service cloud.firestore {
              data.pips is number &&
              data.rr is number &&
              data.profit is number &&
-             data.result in ['win', 'loss', 'none'] &&
+             data.result in ['win', 'loss', 'bep', 'sl_plus', 'none'] &&
              data.userId == request.auth.uid &&
              (!('notes' in data) || (data.notes is string && data.notes.size() < 2000));
     }
